@@ -1,18 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MISA.Fresher2025.Core.Entities
 {
     public class Customer
     {
-        [Key]
-        [Column("customer_id")]
-        public string? CustomerId { get; set; }
-        [Column("customer_code")]
+        public string CustomerId { get; set; }
         public string CustomerCode { get; set; }
-        [Column("customer_name")]
         public string CustomerName { get; set; }
-        [Column("customer_addr")]
-        public string CustomerAddr { get; set; }
+        public string? Address { get; set; }
+        public string? PhoneNumber { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string? CreatedBy { get; set; }
+        public DateTime? ModifiedAt { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? Mobile { get; set; }
     }
 }
