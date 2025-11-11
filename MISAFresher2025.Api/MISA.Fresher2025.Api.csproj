@@ -12,4 +12,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MISA.Fresher2025.Core\MISA.Fresher2025.Core.csproj" />
+    <ProjectReference Include="..\MISA.Fresher2025.Infrastructure\MISA.Fresher2025.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
