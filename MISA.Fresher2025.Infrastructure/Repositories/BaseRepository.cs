@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using MISA.Fresher2025.Core.Interfaces.Repositories;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace MISA.Fresher2025.Infrastructure.Repositories
 {
-    public class BaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T>, IDisposable where T : class
     {
-        readonly string connectionString;
+        protected readonly string connectionString;
         IDbConnection dbConnection;
         public BaseRepository(IConfiguration config)
         {
@@ -76,7 +77,7 @@ namespace MISA.Fresher2025.Infrastructure.Repositories
             var res = dbConnection.Execute(sqlCommand, parameters);
         }
 
-        public void Update(T entity, string id)
+        public T Update(string id, T entity)
         {
             var properties = typeof(T).GetProperties();
             var tableAttr = typeof(T).GetCustomAttribute<TableAttribute>();
@@ -98,6 +99,8 @@ namespace MISA.Fresher2025.Infrastructure.Repositories
             var sqlCommand = $"UPDATE {tableName} SET {setClause} WHERE {tableName}_id = @id";
             parameters.Add("@id", id);
             var res = dbConnection.Execute(sqlCommand, parameters);
+
+            return entity;
         }
 
         public void Delete(string id)
@@ -108,6 +111,11 @@ namespace MISA.Fresher2025.Infrastructure.Repositories
             var sqlCommand = $"DELETE FROM {tableName} WHERE {tableName}_id = @id";
 
             var res = dbConnection.Execute(sqlCommand, new { id });
+        }
+
+        public void Dispose()
+        {
+            dbConnection?.Dispose();
         }
     }
 }

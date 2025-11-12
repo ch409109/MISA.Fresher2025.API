@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace MISA.Fresher2025.Core.Interfaces.Repositories
 {
-    public interface ICustomerRepository : IBaseRepository<Customer>
+    public interface IBaseRepository<T>
     {
+        List<T> GetAll();
+        T GetById(string id);
+        void Create(T entity);
+        T Update(string id, T entity);
+        void Delete(string id);
     }
 }

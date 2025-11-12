@@ -1,3 +1,6 @@
+using MISA.Fresher2025.Core.Interfaces.Services;
+using MISA.Fresher2025.Core.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -10,6 +13,7 @@ builder.Services.AddCors(options =>
                   .AllowAnyMethod();
         });
 });
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 // Add services to the container.
 Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;

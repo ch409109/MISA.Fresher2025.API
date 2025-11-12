@@ -1,4 +1,5 @@
 ﻿using MISA.Fresher2025.Core.Entities;
+using MISA.Fresher2025.Core.Interfaces.Repositories;
 using MISA.Fresher2025.Core.Interfaces.Services;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,18 @@ using System.Threading.Tasks;
 
 namespace MISA.Fresher2025.Core.Services
 {
-    public class CustomerService : ICustomerService
+    public class CustomerService(ICustomerRepository customerRepository) : ICustomerService
     {
+
         public void CreateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            // Validate data
+            if (string.IsNullOrEmpty(customer.CustomerName))
+            {
+                throw new Exception("Tên khách hàng không được để trống.");
+            }
+
+            customerRepository.Create(customer);
         }
 
         public void DeleteCustomer(string customerId)
@@ -27,7 +35,7 @@ namespace MISA.Fresher2025.Core.Services
 
         public List<Customer> GetCustomers()
         {
-            throw new NotImplementedException();
+            return customerRepository.GetAll();
         }
 
         public void UpdateCustomer(string customerId, Customer customer)

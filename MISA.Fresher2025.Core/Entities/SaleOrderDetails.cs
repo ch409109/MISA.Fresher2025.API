@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.Fresher2025.Core.Dtos
+namespace MISA.Fresher2025.Core.Entities
 {
-    public class CustomerDto
+    public class SaleOrderDetails
     {
-
     }
 }

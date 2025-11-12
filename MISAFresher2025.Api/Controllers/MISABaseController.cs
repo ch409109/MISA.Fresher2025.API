@@ -7,20 +7,12 @@ using System.Reflection;
 
 namespace MISA.Fresher2025.Api.Controllers
 {
-    public class MISABaseController<T> : ControllerBase where T : class
+    public class MISABaseController<T>() : ControllerBase where T : class
     {
         [HttpGet]
         public IActionResult Get()
         {
-            var connectionString = "Host=localhost;Port=3306;Database=misa_sale_order;User Id=root;Password=Bluefukuoka22112003.;";
-            using var connection = new MySqlConnection(connectionString);
-            var tableAttr = typeof(T).GetCustomAttribute<TableAttribute>();
-            var tableName = tableAttr != null ? tableAttr.Name : typeof(T).Name.ToLower();
-
-            var sqlCommand = $"SELECT * FROM {tableName}";
-
-            var data = connection.Query<T>(sqlCommand);
-            return Ok(data);
+            return Ok();
         }
 
         [HttpGet("{id}")]
