@@ -4,18 +4,13 @@ using MySqlConnector;
 using Dapper;
 using MISA.Fresher2025.Core.Entities;
 using MISA.Fresher2025.Core.Services;
+using MISA.Fresher2025.Core.Interfaces.Repositories;
 
 namespace MISA.Fresher2025.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController(CustomerService customerService)
+    public class CustomersController(ICustomerRepository customerRepository) : MISABaseController<Customer>(customerRepository)
     {
-        [HttpGet]
-        public List<Customer> Get()
-        {
-            var customers = customerService.GetCustomers();
-            return customers;
-        }
     }
 }

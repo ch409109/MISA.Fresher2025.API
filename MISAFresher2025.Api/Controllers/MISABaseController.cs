@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using MISA.Fresher2025.Core.Interfaces.Repositories;
 using MySqlConnector;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,12 +8,21 @@ using System.Reflection;
 
 namespace MISA.Fresher2025.Api.Controllers
 {
-    public class MISABaseController<T>() : ControllerBase where T : class
+    public abstract class MISABaseController<T> : ControllerBase where T : class
     {
-        [HttpGet]
-        public IActionResult Get()
+        public IBaseRepository<T> _baseRepository;
+
+        protected MISABaseController(IBaseRepository<T> baseRepository)
         {
-            return Ok();
+            _baseRepository = baseRepository;
+        }
+
+        [HttpGet]
+        public ActionResult<List<T>> Get()
+        {
+            var data = _baseRepository.GetAll();
+
+            return Ok(data);
         }
 
         [HttpGet("{id}")]
